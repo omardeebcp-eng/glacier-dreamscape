@@ -65,7 +65,7 @@ export const EvolutionHeroVideo = () => {
       <div className="absolute left-1/2 top-24 z-20 -translate-x-1/2 text-center">
         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/90 backdrop-blur-md">
           <Sparkles className="h-3 w-3" />
-          A Story of Human Biology
+          PaleoChems · Research Peptides
         </span>
       </div>
 
@@ -78,12 +78,12 @@ export const EvolutionHeroVideo = () => {
           <h1 className="max-w-4xl text-balance text-5xl font-semibold leading-[0.95] tracking-tight sm:text-6xl lg:text-[5.5rem]">
             From <span className="italic font-serif bg-gradient-to-r from-amber-300 via-emerald-200 to-glacier-200 bg-clip-text text-transparent">stone</span>
             <br />
-            to <span className="italic font-serif bg-gradient-to-r from-glacier-200 via-cyan-200 to-white bg-clip-text text-transparent">signal</span>.
+            to <span className="italic font-serif bg-gradient-to-r from-glacier-200 via-cyan-200 to-white bg-clip-text text-transparent">sequence</span>.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/80 lg:text-lg">
-            Two and a half million years of human biology — from firelight and
-            instinct to the precision of <span className="italic">peptide signaling</span>.
-            One continuous conversation with the cells that built us.
+            From hand-axes to solid-phase synthesis — research-grade peptides
+            characterized by <span className="italic">HPLC and mass spectrometry</span>,
+            supplied to laboratories worldwide for in-vitro investigation.
           </p>
 
           {/* Era timeline */}
@@ -125,7 +125,7 @@ export const EvolutionHeroVideo = () => {
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href="#discover"
+              href="#catalog"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-glacier-deep shadow-glacier hover:bg-glacier-50"
             >
               Begin the journey
