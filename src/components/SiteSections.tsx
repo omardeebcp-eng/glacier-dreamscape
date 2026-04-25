@@ -1,7 +1,8 @@
-import { ArrowRight, Atom, Activity, Waves, FlaskConical, Dna, HeartPulse, Microscope, Stethoscope, BookOpen, MessageCircle, ShieldCheck, Sparkles, Users, GraduationCap, LineChart, Boxes } from "lucide-react";
+import { ArrowRight, FlaskConical, Microscope, FileText, ShieldAlert, Beaker, Atom, Thermometer, Droplet, Scale, ClipboardList, Mail } from "lucide-react";
+import { SimplePeptideBackdrop } from "./SimplePeptideBackdrop";
 
 /* ────────────────────────────────────────────────────────────
-   Reusable section heading
+   Shared simple section header
    ──────────────────────────────────────────────────────────── */
 const SectionHeader = ({
   eyebrow,
@@ -17,10 +18,10 @@ const SectionHeader = ({
   subtitle: string;
 }) => (
   <div className="mb-14 flex flex-col items-center text-center">
-    <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-glacier-50 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-glacier-700">
+    <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-white/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-glacier-700 backdrop-blur">
       {eyebrow}
     </span>
-    <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+    <h2 className="text-balance text-3xl font-semibold tracking-tight text-glacier-deep sm:text-4xl lg:text-5xl">
       {title}{" "}
       <span className="italic font-serif text-aurora">{italicWord}</span>{" "}
       {trailing}
@@ -31,400 +32,340 @@ const SectionHeader = ({
   </div>
 );
 
-/* ────────────────────────────────────────────────────────────
-   PRODUCTS — peptide protocol catalog
-   ──────────────────────────────────────────────────────────── */
-const products = [
-  {
-    name: "Helix Recover",
-    tag: "BPC-157 · TB-500",
-    desc: "Tissue repair and recovery signaling for athletes and post-surgical protocols.",
-    icon: Activity,
-    accent: "from-amber-200/60 to-glacier-50",
-    dot: "hsl(28 95% 58%)",
-  },
-  {
-    name: "Helix Vital",
-    tag: "GHK-Cu · Epitalon",
-    desc: "Cellular renewal and longevity signaling — the conversation cells were built to have.",
-    icon: HeartPulse,
-    accent: "from-emerald-200/60 to-glacier-50",
-    dot: "hsl(165 70% 45%)",
-  },
-  {
-    name: "Helix Cognita",
-    tag: "Semax · Selank",
-    desc: "Neuro-modulating peptides for focus, resilience and clean cognitive endurance.",
-    icon: Atom,
-    accent: "from-cyan-200/60 to-glacier-50",
-    dot: "hsl(195 85% 55%)",
-  },
-  {
-    name: "Helix Metabolic",
-    tag: "Tirzepatide · CJC-1295",
-    desc: "Metabolic recalibration and body-composition support, dosed with practitioner oversight.",
-    icon: LineChart,
-    accent: "from-glacier-200/60 to-glacier-50",
-    dot: "hsl(215 85% 35%)",
-  },
-  {
-    name: "Helix Defender",
-    tag: "Thymosin α-1",
-    desc: "Immune signaling for the seasons your body asks for a little more.",
-    icon: ShieldCheck,
-    accent: "from-violet-200/60 to-glacier-50",
-    dot: "hsl(265 70% 55%)",
-  },
-  {
-    name: "Helix Sleep",
-    tag: "DSIP · Pinealon",
-    desc: "Restorative sleep architecture and circadian alignment, gently calibrated.",
-    icon: Waves,
-    accent: "from-indigo-200/60 to-glacier-50",
-    dot: "hsl(225 70% 55%)",
-  },
-];
-
-export const ProductsSection = () => (
-  <section id="products" className="relative mx-auto max-w-7xl px-6 py-28 lg:px-10">
-    <SectionHeader
-      eyebrow="Products"
-      title="Six protocols, one"
-      italicWord="biological"
-      trailing="language."
-      subtitle="Each formulation is a precise sentence the body already knows how to read — designed with clinicians, made under cGMP, dosed with care."
-    />
-    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((p) => {
-        const Icon = p.icon;
-        return (
-          <article
-            key={p.name}
-            className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${p.accent} p-7 ring-1 ring-white/60 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-glacier`}
-          >
-            <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-white/40 blur-2xl transition-transform duration-700 group-hover:scale-125" />
-            <div className="relative">
-              <div
-                className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl text-white shadow-soft"
-                style={{ background: p.dot }}
-              >
-                <Icon className="h-5 w-5" />
-              </div>
-              <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.22em] text-glacier-700">
-                {p.tag}
-              </p>
-              <h3 className="text-xl font-semibold tracking-tight text-glacier-deep">
-                {p.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-glacier-deep/70">
-                {p.desc}
-              </p>
-              <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-glacier-deep">
-                View protocol
-                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-              </div>
-            </div>
-          </article>
-        );
-      })}
+/* Wrapper that places a low-opacity reactive peptide chain behind the section */
+const PeptideSection = ({
+  id,
+  hue = 0.57,
+  children,
+  className = "",
+}: {
+  id?: string;
+  hue?: number;
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <section id={id} className={`relative overflow-hidden ${className}`}>
+    <div className="absolute inset-0 opacity-40">
+      <SimplePeptideBackdrop hue={hue} />
     </div>
+    {/* legibility wash */}
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-white/55 to-white/80" />
+    <div className="relative">{children}</div>
   </section>
 );
 
 /* ────────────────────────────────────────────────────────────
-   DISCOVER — science / education
+   CATALOG — research peptides for laboratory use
    ──────────────────────────────────────────────────────────── */
-const discoverItems = [
+const catalog = [
+  { code: "BPC-157", purity: "≥ 99.0%", mw: "1419.5 g/mol", sizes: "5 mg · 10 mg" },
+  { code: "TB-500", purity: "≥ 99.2%", mw: "4963.4 g/mol", sizes: "2 mg · 5 mg · 10 mg" },
+  { code: "GHK-Cu", purity: "≥ 98.5%", mw: "402.9 g/mol", sizes: "50 mg · 100 mg" },
+  { code: "Epitalon", purity: "≥ 99.0%", mw: "390.4 g/mol", sizes: "10 mg · 20 mg" },
+  { code: "Semax", purity: "≥ 98.8%", mw: "813.9 g/mol", sizes: "10 mg · 30 mg" },
+  { code: "Selank", purity: "≥ 98.5%", mw: "751.9 g/mol", sizes: "5 mg · 10 mg" },
+  { code: "CJC-1295 (no DAC)", purity: "≥ 99.1%", mw: "3367.9 g/mol", sizes: "2 mg · 5 mg" },
+  { code: "Ipamorelin", purity: "≥ 99.3%", mw: "711.9 g/mol", sizes: "2 mg · 5 mg" },
+  { code: "Thymosin α-1", purity: "≥ 98.9%", mw: "3108.4 g/mol", sizes: "5 mg · 10 mg" },
+];
+
+export const CatalogSection = () => (
+  <PeptideSection id="catalog" hue={0.57}>
+    <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
+      <SectionHeader
+        eyebrow="Catalog"
+        title="Reference-grade research"
+        italicWord="peptides"
+        trailing="."
+        subtitle="Lyophilized powders synthesized by SPPS, characterized by HPLC and mass spectrometry. For in-vitro and laboratory research use only."
+      />
+
+      <div className="overflow-hidden rounded-3xl border border-glacier-200 bg-white/90 shadow-soft backdrop-blur">
+        <div className="grid grid-cols-12 border-b border-glacier-100 bg-glacier-50/60 px-6 py-3 text-[10px] font-mono uppercase tracking-[0.22em] text-glacier-700">
+          <div className="col-span-4">Compound</div>
+          <div className="col-span-2">Purity (HPLC)</div>
+          <div className="col-span-3">Molecular weight</div>
+          <div className="col-span-2">Available sizes</div>
+          <div className="col-span-1 text-right">Spec</div>
+        </div>
+        {catalog.map((c, i) => (
+          <a
+            key={c.code}
+            href="#"
+            className={`group grid grid-cols-12 items-center px-6 py-4 text-sm transition-colors hover:bg-glacier-50/80 ${
+              i !== catalog.length - 1 ? "border-b border-glacier-100" : ""
+            }`}
+          >
+            <div className="col-span-4 flex items-center gap-3">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-glacier-deep text-white">
+                <Atom className="h-4 w-4" />
+              </span>
+              <span className="font-medium text-glacier-deep">{c.code}</span>
+            </div>
+            <div className="col-span-2 font-mono text-[12px] text-glacier-700">{c.purity}</div>
+            <div className="col-span-3 font-mono text-[12px] text-glacier-700">{c.mw}</div>
+            <div className="col-span-2 text-[12px] text-glacier-deep/70">{c.sizes}</div>
+            <div className="col-span-1 flex justify-end">
+              <ArrowRight className="h-4 w-4 text-glacier-500 transition-transform group-hover:translate-x-0.5" />
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <p className="mt-6 text-center text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+        Not for human consumption · Not a drug, food or cosmetic · Research use only
+      </p>
+    </div>
+  </PeptideSection>
+);
+
+/* ────────────────────────────────────────────────────────────
+   QUALITY — analytical and handling specs
+   ──────────────────────────────────────────────────────────── */
+const quality = [
   {
-    kicker: "Library",
-    title: "The Peptide Atlas",
-    body: "A growing reference of every peptide in our formulary — mechanism, evidence, dosing, contraindications.",
-    icon: BookOpen,
-    span: "lg:col-span-2",
-  },
-  {
-    kicker: "Research",
-    title: "Trials & Data",
-    body: "Independent and partnered clinical work — published, peer-reviewed, openly cited.",
     icon: Microscope,
+    title: "HPLC verified",
+    body: "Every lot ≥ 98% by reverse-phase HPLC. Chromatograms supplied with each shipment.",
   },
   {
-    kicker: "Story",
-    title: "From Stone to Signal",
-    body: "Our long-form essay on 2.5M years of human biology and the return to first principles.",
-    icon: Dna,
-  },
-  {
-    kicker: "Lab Notes",
-    title: "Behind the Bench",
-    body: "Short dispatches from formulation, QC and stability testing — what changed, why it matters.",
     icon: FlaskConical,
-    span: "lg:col-span-2",
+    title: "MS confirmed",
+    body: "Identity confirmed by ESI-MS. Theoretical and observed masses recorded per lot.",
+  },
+  {
+    icon: Thermometer,
+    title: "Cold-chain shipping",
+    body: "Lyophilized peptides shipped with insulation; stored at -20°C upon receipt.",
+  },
+  {
+    icon: Droplet,
+    title: "Reconstitution guides",
+    body: "Solubility data for bacteriostatic water, acetic acid and DMSO included with COA.",
+  },
+  {
+    icon: Scale,
+    title: "Accurate fill weights",
+    body: "Net peptide content stated. No proprietary blends, no undisclosed excipients.",
+  },
+  {
+    icon: ShieldAlert,
+    title: "Endotoxin tested",
+    body: "Select compounds available in low-endotoxin format on request for sensitive assays.",
   },
 ];
 
-export const DiscoverSection = () => (
-  <section id="discover" className="relative bg-gradient-to-b from-white to-glacier-50/60">
+export const QualitySection = () => (
+  <PeptideSection id="quality" hue={0.55}>
     <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
       <SectionHeader
-        eyebrow="Discover"
-        title="Where curiosity"
-        italicWord="becomes"
-        trailing="evidence."
-        subtitle="Read the science the way it was meant to be read — slowly, with citations, and with respect for what we still don't know."
+        eyebrow="Quality"
+        title="Analytical rigor on"
+        italicWord="every"
+        trailing="lot."
+        subtitle="Synthesis is only the beginning. Characterization is what makes a reagent trustworthy in your assay."
       />
-      <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-        {discoverItems.map((d) => {
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {quality.map((q) => {
+          const Icon = q.icon;
+          return (
+            <div
+              key={q.title}
+              className="group rounded-2xl border border-glacier-100 bg-white/90 p-7 shadow-soft backdrop-blur transition-all duration-500 hover:-translate-y-0.5 hover:shadow-glacier"
+            >
+              <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-glacier-deep text-white">
+                <Icon className="h-4.5 w-4.5" />
+              </div>
+              <h3 className="text-base font-semibold tracking-tight text-glacier-deep">
+                {q.title}
+              </h3>
+              <p className="mt-1.5 text-[13px] leading-relaxed text-glacier-deep/70">
+                {q.body}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </PeptideSection>
+);
+
+/* ────────────────────────────────────────────────────────────
+   DOCUMENTATION — COA, SDS, references
+   ──────────────────────────────────────────────────────────── */
+const docs = [
+  {
+    icon: FileText,
+    kicker: "Per lot",
+    title: "Certificate of Analysis",
+    body: "HPLC purity, mass spec confirmation, peptide content and counter-ion data.",
+  },
+  {
+    icon: ClipboardList,
+    kicker: "Per compound",
+    title: "Safety Data Sheet",
+    body: "GHS-aligned handling, storage and disposal information for laboratory use.",
+  },
+  {
+    icon: Beaker,
+    kicker: "Reference",
+    title: "Reconstitution Notes",
+    body: "Solvent compatibility, working concentrations and stability windows.",
+  },
+];
+
+export const DocumentationSection = () => (
+  <PeptideSection id="documentation" hue={0.6}>
+    <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
+      <SectionHeader
+        eyebrow="Documentation"
+        title="Every reagent ships with"
+        italicWord="paperwork"
+        trailing="that holds up."
+        subtitle="COA, SDS and reconstitution data are downloadable before purchase and packed with every order."
+      />
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        {docs.map((d) => {
           const Icon = d.icon;
           return (
             <article
               key={d.title}
-              className={`group relative overflow-hidden rounded-3xl bg-white p-8 ring-1 ring-glacier-100 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-glacier ${d.span ?? ""}`}
-            >
-              <div className="absolute inset-0 -z-0 bg-gradient-to-br from-glacier-50/0 via-glacier-50/0 to-glacier-100/60 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex h-full flex-col justify-between gap-8">
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-glacier-deep text-white shadow-soft">
-                  <Icon className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="mb-2 text-[10px] font-mono uppercase tracking-[0.22em] text-glacier-700">
-                    {d.kicker}
-                  </p>
-                  <h3 className="text-2xl font-semibold tracking-tight text-glacier-deep">
-                    {d.title}
-                  </h3>
-                  <p className="mt-3 max-w-md text-sm leading-relaxed text-glacier-deep/70">
-                    {d.body}
-                  </p>
-                  <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-glacier-deep">
-                    Read more
-                    <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            </article>
-          );
-        })}
-      </div>
-    </div>
-  </section>
-);
-
-/* ────────────────────────────────────────────────────────────
-   SUPPORT — help center / contact
-   ──────────────────────────────────────────────────────────── */
-const supportTiles = [
-  {
-    title: "Help Center",
-    body: "Searchable answers on dosing, storage, shipping and account questions.",
-    icon: BookOpen,
-    cta: "Browse articles",
-  },
-  {
-    title: "Talk to a Human",
-    body: "Real people, real fast. Average response under 4 minutes during business hours.",
-    icon: MessageCircle,
-    cta: "Open chat",
-  },
-  {
-    title: "Clinical Concierge",
-    body: "Speak with a licensed practitioner about whether a protocol is right for you.",
-    icon: Stethoscope,
-    cta: "Book a call",
-  },
-];
-
-export const SupportSection = () => (
-  <section id="support" className="relative">
-    <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-      <SectionHeader
-        eyebrow="Support"
-        title="Quiet, careful,"
-        italicWord="human"
-        trailing="support."
-        subtitle="No bots pretending to be people. No tier-one scripts. Real practitioners and real specialists, every time."
-      />
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-        {supportTiles.map((t) => {
-          const Icon = t.icon;
-          return (
-            <article
-              key={t.title}
-              className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-glacier-50 to-white p-8 ring-1 ring-glacier-100 shadow-soft transition-all duration-500 hover:-translate-y-1 hover:shadow-glacier"
+              className="group rounded-3xl border border-glacier-100 bg-white/90 p-8 shadow-soft backdrop-blur transition-all duration-500 hover:-translate-y-1 hover:shadow-glacier"
             >
               <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-glacier-deep text-white shadow-soft">
                 <Icon className="h-5 w-5" />
               </div>
+              <p className="mb-1 text-[10px] font-mono uppercase tracking-[0.22em] text-glacier-700">
+                {d.kicker}
+              </p>
               <h3 className="text-xl font-semibold tracking-tight text-glacier-deep">
-                {t.title}
+                {d.title}
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-glacier-deep/70">
-                {t.body}
+                {d.body}
               </p>
               <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-glacier-deep">
-                {t.cta}
+                Download sample
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </div>
             </article>
           );
         })}
       </div>
-
-      {/* Trust band */}
-      <div className="mt-16 grid grid-cols-2 gap-6 rounded-3xl bg-glacier-deep px-8 py-10 text-white sm:grid-cols-4">
-        {[
-          { k: "<4 min", v: "Avg. response" },
-          { k: "24 / 7", v: "Order tracking" },
-          { k: "98%", v: "Practitioner CSAT" },
-          { k: "SOC 2", v: "Type II certified" },
-        ].map((s) => (
-          <div key={s.v} className="text-center">
-            <p className="font-serif text-3xl italic tracking-tight sm:text-4xl">
-              {s.k}
-            </p>
-            <p className="mt-1 text-[10px] font-mono uppercase tracking-[0.22em] text-white/60">
-              {s.v}
-            </p>
-          </div>
-        ))}
-      </div>
     </div>
-  </section>
+  </PeptideSection>
 );
 
 /* ────────────────────────────────────────────────────────────
-   PRACTITIONER — clinician portal pitch
+   ACCOUNTS — researcher / institution sign-up
    ──────────────────────────────────────────────────────────── */
-export const PractitionerSection = () => {
-  const features = [
-    {
-      icon: Users,
-      title: "Patient management",
-      body: "Build cohorts, track adherence, message securely, all in one HIPAA-aligned workspace.",
-    },
-    {
-      icon: Boxes,
-      title: "Custom protocols",
-      body: "Compose multi-peptide protocols with dosing schedules and patient-facing instructions.",
-    },
-    {
-      icon: GraduationCap,
-      title: "Continuing education",
-      body: "On-demand CME modules co-authored with clinicians actively working in peptide medicine.",
-    },
-    {
-      icon: ShieldCheck,
-      title: "Compliance built-in",
-      body: "Audit trails, signed consent, e-prescribing — the boring parts handled correctly.",
-    },
+export const ResearchersSection = () => {
+  const items = [
+    "Tiered pricing for academic and institutional accounts",
+    "Bulk and custom-sized orders by quotation",
+    "PO terms available for verified institutions",
+    "Dedicated point of contact for ongoing programs",
   ];
-
   return (
-    <section
-      id="practitioner"
-      className="relative overflow-hidden bg-gradient-to-b from-glacier-50/60 via-white to-white"
-    >
-      {/* decorative aurora */}
-      <div className="pointer-events-none absolute -top-24 left-1/3 h-96 w-96 rounded-full bg-glacier-200/50 blur-3xl" />
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-amber-100/50 blur-3xl" />
-
-      <div className="relative mx-auto max-w-7xl px-6 py-28 lg:px-10">
+    <PeptideSection id="researchers" hue={0.58}>
+      <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
           <div>
             <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-white/80 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-glacier-700 backdrop-blur">
-              <Sparkles className="h-3 w-3" />
-              For practitioners
+              Researchers
             </span>
-            <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[3.4rem] lg:leading-[1.05]">
-              A clinic-grade workspace for{" "}
-              <span className="italic font-serif text-aurora">peptide</span> medicine.
+            <h2 className="mt-4 text-balance text-4xl font-semibold tracking-tight text-glacier-deep sm:text-5xl">
+              Built for{" "}
+              <span className="italic font-serif text-aurora">laboratory</span>{" "}
+              workflows.
             </h2>
             <p className="mt-5 max-w-md text-base leading-relaxed text-muted-foreground">
-              Everything you need to design, prescribe and follow up on peptide
-              protocols — with the rigor your patients deserve and the speed
-              your practice requires.
+              PaleoChems supplies academic labs, contract research organizations
+              and independent investigators. Verified research-use accounts
+              unlock pricing, bulk sizing and reservation of specific lots.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
                 href="#"
                 className="inline-flex items-center gap-2 rounded-full bg-glacier-deep px-6 py-3 text-sm font-medium text-white shadow-glacier hover:bg-glacier-700"
               >
-                Apply for access
+                Apply for a research account
                 <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href="#"
+                href="#contact"
                 className="text-sm font-medium text-glacier-deep underline-offset-4 hover:underline"
               >
-                Download the clinical brief →
+                Request a quotation →
               </a>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {features.map((f) => {
-              const Icon = f.icon;
-              return (
-                <div
-                  key={f.title}
-                  className="glass-strong rounded-2xl p-6 shadow-soft transition-all duration-500 hover:-translate-y-0.5 hover:shadow-glacier"
-                >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-glacier-deep text-white">
-                    <Icon className="h-4.5 w-4.5" />
-                  </div>
-                  <h3 className="text-base font-semibold tracking-tight text-glacier-deep">
-                    {f.title}
-                  </h3>
-                  <p className="mt-1.5 text-[13px] leading-relaxed text-glacier-deep/70">
-                    {f.body}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
+          <ul className="grid grid-cols-1 gap-3">
+            {items.map((it) => (
+              <li
+                key={it}
+                className="flex items-start gap-3 rounded-2xl border border-glacier-100 bg-white/90 p-5 shadow-soft backdrop-blur"
+              >
+                <span className="mt-0.5 flex h-6 w-6 flex-none items-center justify-center rounded-full bg-glacier-deep text-[11px] font-semibold text-white">
+                  ✓
+                </span>
+                <span className="text-sm text-glacier-deep/85">{it}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
-    </section>
+    </PeptideSection>
   );
 };
 
 /* ────────────────────────────────────────────────────────────
-   FINAL CTA
+   COMPLIANCE / CONTACT — closing band
    ──────────────────────────────────────────────────────────── */
-export const FinalCTA = () => (
-  <section className="relative overflow-hidden">
-    <div className="mx-auto max-w-7xl px-6 py-28 lg:px-10">
-      <div className="relative overflow-hidden rounded-[2.5rem] bg-glacier-deep px-8 py-20 text-center text-white shadow-glacier sm:px-16">
-        <div className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-glacier-500/40 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-amber-400/20 blur-3xl" />
-        <div className="relative">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/90 backdrop-blur">
-            Begin
-          </span>
-          <h2 className="mx-auto mt-4 max-w-2xl text-balance text-4xl font-semibold tracking-tight sm:text-5xl">
-            The next sentence in your{" "}
-            <span className="italic font-serif bg-gradient-to-r from-amber-300 via-emerald-200 to-glacier-200 bg-clip-text text-transparent">
-              biology
-            </span>{" "}
-            is yours to write.
-          </h2>
-          <p className="mx-auto mt-4 max-w-lg text-sm leading-relaxed text-white/70">
-            Create your account, talk to a clinician, and start a protocol
-            designed around the body you actually have.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+export const ComplianceCTA = () => (
+  <section id="contact" className="relative overflow-hidden">
+    <div className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      <div className="relative overflow-hidden rounded-[2rem] border border-glacier-deep/20 bg-glacier-deep px-8 py-16 text-white shadow-glacier sm:px-14">
+        <div className="absolute inset-0 opacity-30">
+          <SimplePeptideBackdrop hue={0.57} />
+        </div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-glacier-deep/60 via-glacier-deep/40 to-glacier-deep/80" />
+
+        <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
+          <div>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/90 backdrop-blur">
+              Compliance
+            </span>
+            <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
+              Sold strictly for{" "}
+              <span className="italic font-serif bg-gradient-to-r from-amber-300 via-emerald-200 to-glacier-200 bg-clip-text text-transparent">
+                research
+              </span>{" "}
+              use.
+            </h2>
+            <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/75">
+              All compounds distributed by PaleoChems are supplied for in-vitro
+              experimentation and laboratory research only. They are not
+              intended for human or veterinary use, diagnostic procedures, food
+              applications, or any clinical purpose. Purchasers must be 21+ and
+              affirm research-use only at checkout.
+            </p>
+          </div>
+
+          <div className="flex flex-col gap-3">
             <a
-              href="#"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-glacier-deep hover:bg-glacier-50"
+              href="mailto:research@paleochems.com"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-glacier-deep hover:bg-glacier-50"
             >
-              Create your account
-              <ArrowRight className="h-4 w-4" />
+              <Mail className="h-4 w-4" />
+              research@paleochems.com
             </a>
             <a
-              href="#practitioner"
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white hover:bg-white/10"
+              href="#researchers"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white hover:bg-white/10"
             >
-              I'm a practitioner
+              Open a research account
             </a>
           </div>
         </div>
