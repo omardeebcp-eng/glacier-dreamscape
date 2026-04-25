@@ -3,15 +3,15 @@ import { PolypeptideScene } from "./PolypeptideScene";
 
 const features = [
   {
-    title: "Adaptive Intelligence",
+    titleParts: ["Adaptive ", "Intelligence"] as const,
     body: "Components that respond to context, intent, and motion — designed for the next decade of interfaces.",
   },
   {
-    title: "Engineered Elegance",
+    titleParts: ["Engineered ", "Elegance"] as const,
     body: "Every interaction is meticulously calibrated. Restraint, rhythm, and clarity at every scale.",
   },
   {
-    title: "Built for Scale",
+    titleParts: ["Built for ", "Scale"] as const,
     body: "From a first prototype to global production. Quietly powerful, effortlessly composable.",
   },
 ];
@@ -83,7 +83,8 @@ export const ShowcasePanel = () => {
 
           <div key={active} className="animate-fade-up">
             <h3 className="text-xl font-semibold tracking-tight text-glacier-deep">
-              {features[active].title}
+              {features[active].titleParts[0]}
+              <span className="text-aurora">{features[active].titleParts[1]}</span>
             </h3>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
               {features[active].body}
