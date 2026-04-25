@@ -8,6 +8,13 @@ import { PolypeptideScene } from "@/components/PolypeptideScene";
 import { PolypeptideBorder } from "@/components/PolypeptideBorder";
 import { EvolutionStory } from "@/components/EvolutionStory";
 import { EvolutionHeroVideo } from "@/components/EvolutionHeroVideo";
+import {
+  ProductsSection,
+  DiscoverSection,
+  SupportSection,
+  PractitionerSection,
+  FinalCTA,
+} from "@/components/SiteSections";
 
 const cards = [
   {
@@ -47,8 +54,10 @@ const Index = () => {
     <div className="min-h-screen w-full bg-gradient-soft text-glacier-deep">
       {/* ── Top Nav ── */}
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? "glass-strong shadow-soft" : "bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b ${
+          scrolled
+            ? "glass-strong border-glacier-200/80 shadow-soft"
+            : "bg-glacier-deep/70 border-white/10 backdrop-blur-md"
         }`}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
@@ -61,15 +70,31 @@ const Index = () => {
                 </svg>
               </div>
             </div>
-            <span className="text-base font-semibold tracking-tight">Lovable</span>
+            <span
+              className={`text-base font-semibold tracking-tight transition-colors ${
+                scrolled ? "text-glacier-deep" : "text-white"
+              }`}
+            >
+              Lovable
+            </span>
           </a>
-          <div className="hidden items-center gap-9 text-[13px] font-medium text-glacier-deep/80 md:flex">
-            <a href="#products" className="hover:text-glacier-deep transition">Products</a>
-            <a href="#discover" className="hover:text-glacier-deep transition">Discover</a>
-            <a href="#support" className="hover:text-glacier-deep transition">Support</a>
-            <a href="#practitioner" className="hover:text-glacier-deep transition">Practitioner</a>
+          <div
+            className={`hidden items-center gap-9 text-[13px] font-medium md:flex transition-colors ${
+              scrolled ? "text-glacier-deep/80" : "text-white/85"
+            }`}
+          >
+            <a href="#products" className="hover:opacity-100 opacity-90 transition">Products</a>
+            <a href="#discover" className="hover:opacity-100 opacity-90 transition">Discover</a>
+            <a href="#support" className="hover:opacity-100 opacity-90 transition">Support</a>
+            <a href="#practitioner" className="hover:opacity-100 opacity-90 transition">Practitioner</a>
           </div>
-          <Button className="h-9 rounded-full border border-glacier-deep/20 bg-transparent px-5 text-[13px] font-medium text-glacier-deep hover:bg-glacier-deep hover:text-white">
+          <Button
+            className={`h-9 rounded-full px-5 text-[13px] font-medium transition-colors ${
+              scrolled
+                ? "border border-glacier-deep/20 bg-transparent text-glacier-deep hover:bg-glacier-deep hover:text-white"
+                : "border border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white hover:text-glacier-deep"
+            }`}
+          >
             Get started
           </Button>
         </nav>
@@ -229,11 +254,26 @@ const Index = () => {
         <EvolutionStory />
       </div>
 
-      {/* ── 3-up category cards (InfiniWell-inspired) ── */}
-      <section id="discover" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10">
+      {/* ── Products ── */}
+      <ProductsSection />
+
+      {/* ── Discover ── */}
+      <DiscoverSection />
+
+      {/* ── Support ── */}
+      <SupportSection />
+
+      {/* ── Practitioner ── */}
+      <PractitionerSection />
+
+      {/* ── Final CTA ── */}
+      <FinalCTA />
+
+      {/* ── 3-up category cards (kept as foundational pillars) ── */}
+      <section id="pillars" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10">
         <div className="mb-14 flex flex-col items-center text-center">
           <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-glacier-50 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-glacier-700">
-            Discover
+            Foundation
           </span>
           <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
             Built on a <span className="italic font-serif text-aurora">living</span> foundation.
