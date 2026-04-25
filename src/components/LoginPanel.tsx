@@ -40,10 +40,10 @@ export const LoginPanel = () => {
             </span>
             <div className="space-y-2.5">
               <h1 className="text-balance text-4xl font-semibold tracking-tight text-glacier-deep sm:text-[2.6rem] sm:leading-[1.05]">
-                Sign in to your workspace
+                Sign in to your <span className="text-aurora">workspace</span>
               </h1>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Continue building beautiful, production-ready apps with the tools your team already loves.
+                Continue building <span className="text-aurora font-medium">beautiful</span>, <span className="text-aurora font-medium">production-ready</span> apps with the tools your team already loves.
               </p>
             </div>
           </div>

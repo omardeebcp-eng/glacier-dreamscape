@@ -139,3 +139,30 @@
   70% { transform: scale(1.4); opacity: 0; }
   100% { transform: scale(1.4); opacity: 0; }
 }
+
+@keyframes aurora-flow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@layer utilities {
+  .text-aurora {
+    background-image: linear-gradient(
+      90deg,
+      hsl(280 85% 60%) 0%,
+      hsl(255 90% 65%) 18%,
+      hsl(220 95% 60%) 36%,
+      hsl(195 95% 55%) 54%,
+      hsl(30 100% 60%) 78%,
+      hsl(15 95% 60%) 100%
+    );
+    background-size: 250% 100%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: aurora-flow 7s ease-in-out infinite;
+    filter: drop-shadow(0 1px 12px hsl(255 90% 65% / 0.25));
+  }
+}
