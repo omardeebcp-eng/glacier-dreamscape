@@ -1,50 +1,27 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Sparkles, ShieldCheck, Zap, Lock, Activity, Atom, Waves } from "lucide-react";
+import { ArrowRight, Sparkles, FlaskConical, Microscope, ShieldAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GithubIcon, GoogleIcon } from "@/components/icons";
 import { PolypeptideScene } from "@/components/PolypeptideScene";
 import { PolypeptideBorder } from "@/components/PolypeptideBorder";
 import { EvolutionStory } from "@/components/EvolutionStory";
 import { EvolutionHeroVideo } from "@/components/EvolutionHeroVideo";
 import {
-  ProductsSection,
-  DiscoverSection,
-  SupportSection,
-  PractitionerSection,
-  FinalCTA,
+  CatalogSection,
+  QualitySection,
+  DocumentationSection,
+  ResearchersSection,
+  ComplianceCTA,
 } from "@/components/SiteSections";
-
-const cards = [
-  {
-    eyebrow: "Adaptive Intelligence",
-    title: ["Peptide-Powered ", "Workflows"],
-    body: "Components that respond to context, intent, and motion — designed for the next decade of interfaces.",
-    icon: Atom,
-    tone: "from-glacier-200/70 to-glacier-50",
-  },
-  {
-    eyebrow: "Engineered Elegance",
-    title: ["Out-of-this-World ", "Recovery"],
-    body: "Every interaction meticulously calibrated. Restraint, rhythm, and clarity at every scale.",
-    icon: Waves,
-    tone: "from-glacier-100/80 to-white",
-  },
-  {
-    eyebrow: "Built for Scale",
-    title: ["Recharge ", "Your Build"],
-    body: "From first prototype to global production. Quietly powerful, effortlessly composable.",
-    icon: Activity,
-    tone: "from-glacier-300/60 to-glacier-100/60",
-  },
-];
 
 const Index = () => {
   const [email, setEmail] = useState("");
+  const [institution, setInstitution] = useState("");
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    document.title = "PaleoChems — Research-grade peptides for the laboratory";
     const onScroll = () => setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
@@ -52,12 +29,12 @@ const Index = () => {
 
   return (
     <div className="min-h-screen w-full bg-gradient-soft text-glacier-deep">
-      {/* ── Top Nav ── */}
+      {/* ── Top Nav (always visible) ── */}
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 border-b ${
           scrolled
             ? "glass-strong border-glacier-200/80 shadow-soft"
-            : "bg-glacier-deep/70 border-white/10 backdrop-blur-md"
+            : "bg-glacier-deep/75 border-white/10 backdrop-blur-md"
         }`}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-10">
@@ -65,9 +42,7 @@ const Index = () => {
             <div className="relative">
               <div className="absolute inset-0 rounded-xl bg-glacier-300/40 blur-md" />
               <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-glacier-400 to-glacier-700 shadow-soft">
-                <svg viewBox="0 0 24 24" className="h-5 w-5 text-white" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21s-7-4.5-9-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c-2 5.5-9 10-9 10z" />
-                </svg>
+                <FlaskConical className="h-5 w-5 text-white" />
               </div>
             </div>
             <span
@@ -75,7 +50,7 @@ const Index = () => {
                 scrolled ? "text-glacier-deep" : "text-white"
               }`}
             >
-              Lovable
+              Paleo<span className="font-serif italic">Chems</span>
             </span>
           </a>
           <div
@@ -83,10 +58,10 @@ const Index = () => {
               scrolled ? "text-glacier-deep/80" : "text-white/85"
             }`}
           >
-            <a href="#products" className="hover:opacity-100 opacity-90 transition">Products</a>
-            <a href="#discover" className="hover:opacity-100 opacity-90 transition">Discover</a>
-            <a href="#support" className="hover:opacity-100 opacity-90 transition">Support</a>
-            <a href="#practitioner" className="hover:opacity-100 opacity-90 transition">Practitioner</a>
+            <a href="#catalog" className="hover:opacity-100 opacity-90 transition">Catalog</a>
+            <a href="#quality" className="hover:opacity-100 opacity-90 transition">Quality</a>
+            <a href="#documentation" className="hover:opacity-100 opacity-90 transition">Documentation</a>
+            <a href="#researchers" className="hover:opacity-100 opacity-90 transition">Researchers</a>
           </div>
           <Button
             className={`h-9 rounded-full px-5 text-[13px] font-medium transition-colors ${
@@ -95,7 +70,7 @@ const Index = () => {
                 : "border border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white hover:text-glacier-deep"
             }`}
           >
-            Get started
+            Open account
           </Button>
         </nav>
       </header>
@@ -145,93 +120,97 @@ const Index = () => {
             <span className="absolute inline-flex h-full w-full rounded-full bg-glacier-500 opacity-75 animate-pulse-ring" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-glacier-600" />
           </span>
-          Live · Helix v3.2
+          Lot QA · Helix v3.2
         </div>
         <div className="absolute top-24 right-8 z-30 hidden items-center gap-2 rounded-full glass px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-glacier-700 shadow-soft md:flex">
           <span className="text-glacier-500">◇</span>
           Move cursor
         </div>
 
-        {/* Hero content — centered login card */}
+        {/* Hero content — research account card */}
         <div className="relative z-30 mx-auto flex min-h-[calc(100vh-4rem)] max-w-7xl items-center justify-center px-6 py-12 lg:px-20">
           <div className="grid w-full grid-cols-1 items-center gap-10 lg:grid-cols-2">
             {/* Left: hero copy */}
             <div className="animate-fade-up space-y-6 text-center lg:text-left">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-white/70 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-glacier-700 backdrop-blur">
                 <Sparkles className="h-3 w-3" />
-                Welcome back
+                Research-use reagents
               </span>
               <h1 className="text-balance text-4xl font-semibold tracking-tight sm:text-5xl lg:text-[3.4rem] lg:leading-[1.02]">
-                For a <span className="italic font-serif text-aurora">long build</span>,
+                Reference-grade <span className="italic font-serif text-aurora">peptides</span>,
                 <br className="hidden sm:block" />
-                <span className="text-aurora">well-shipped</span>.
+                <span className="text-aurora">characterized</span> per lot.
               </h1>
               <p className="mx-auto max-w-md text-base leading-relaxed text-muted-foreground lg:mx-0">
-                Sign in to your <span className="text-aurora font-medium">workspace</span> and continue building
-                <span className="text-aurora font-medium"> beautiful</span>, production-ready apps with the tools your team already loves.
+                PaleoChems supplies <span className="text-aurora font-medium">SPPS-synthesized</span> research peptides
+                with HPLC and mass-spectrometry data on every <span className="text-aurora font-medium">lot</span>.
+                For in-vitro and laboratory research only.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 pt-2 lg:justify-start">
                 <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
-                  <ShieldCheck className="h-4 w-4 text-glacier-500" />
-                  SOC 2 Type II
+                  <Microscope className="h-4 w-4 text-glacier-500" />
+                  HPLC ≥ 98%
                 </div>
                 <div className="h-3 w-px bg-border" />
                 <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
-                  <Zap className="h-4 w-4 text-glacier-500" />
-                  99.99% uptime
+                  <FlaskConical className="h-4 w-4 text-glacier-500" />
+                  ESI-MS confirmed
                 </div>
                 <div className="h-3 w-px bg-border" />
                 <div className="flex items-center gap-1.5 text-[12px] text-muted-foreground">
-                  <Lock className="h-4 w-4 text-glacier-500" />
-                  GDPR
+                  <ShieldAlert className="h-4 w-4 text-glacier-500" />
+                  Research use only
                 </div>
               </div>
             </div>
 
-            {/* Right: login card */}
+            {/* Right: research-account request card */}
             <div className="animate-fade-up" style={{ animationDelay: "120ms" }}>
               <div className="glass-strong relative mx-auto w-full max-w-sm rounded-3xl p-7 shadow-glacier">
                 <div className="space-y-5">
                   <div className="space-y-1">
-                    <h2 className="text-xl font-semibold tracking-tight">Sign in</h2>
-                    <p className="text-xs text-muted-foreground">Use your work email or a social provider.</p>
-                  </div>
-
-                  <div className="space-y-2.5">
-                    <Button variant="outline" className="group h-11 w-full justify-center gap-2.5 border-border bg-white text-sm font-medium text-glacier-deep transition-all hover:border-glacier-300 hover:bg-glacier-50/70 hover:shadow-soft">
-                      <GoogleIcon />
-                      Continue with Google
-                    </Button>
-                    <Button variant="outline" className="group h-11 w-full justify-center gap-2.5 border-border bg-white text-sm font-medium text-glacier-deep transition-all hover:border-glacier-300 hover:bg-glacier-50/70 hover:shadow-soft">
-                      <GithubIcon />
-                      Continue with GitHub
-                    </Button>
-                  </div>
-
-                  <div className="relative flex items-center">
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-                    <span className="px-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">or</span>
-                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+                    <h2 className="text-xl font-semibold tracking-tight">Open a research account</h2>
+                    <p className="text-xs text-muted-foreground">
+                      Verified accounts unlock pricing, bulk sizing and lot reservation.
+                    </p>
                   </div>
 
                   <form className="space-y-3.5" onSubmit={(e) => e.preventDefault()}>
                     <div className="space-y-1.5">
-                      <Label htmlFor="email" className="text-xs font-medium">Email address</Label>
+                      <Label htmlFor="institution" className="text-xs font-medium">Institution / Laboratory</Label>
+                      <Input
+                        id="institution"
+                        type="text"
+                        placeholder="e.g. Department of Biochemistry"
+                        value={institution}
+                        onChange={(e) => setInstitution(e.target.value)}
+                        className="h-11 border-border bg-white text-sm placeholder:text-muted-foreground/70 focus-visible:border-glacier-400 focus-visible:ring-glacier-300/40"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="email" className="text-xs font-medium">Research email</Label>
                       <Input
                         id="email"
                         type="email"
-                        placeholder="you@company.com"
+                        placeholder="you@institution.edu"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         className="h-11 border-border bg-white text-sm placeholder:text-muted-foreground/70 focus-visible:border-glacier-400 focus-visible:ring-glacier-300/40"
                       />
                     </div>
+
+                    <label className="flex items-start gap-2 text-[11px] leading-relaxed text-muted-foreground">
+                      <input type="checkbox" className="mt-0.5 h-3.5 w-3.5 rounded border-border accent-glacier-deep" />
+                      I confirm I am 21+ and that all materials will be used for
+                      laboratory research only. Not for human or veterinary use.
+                    </label>
+
                     <Button
                       type="submit"
                       className="group relative h-11 w-full overflow-hidden bg-glacier-deep text-sm font-medium text-white shadow-soft transition-all hover:bg-glacier-700 hover:shadow-glacier"
                     >
                       <span className="relative z-10 flex items-center justify-center gap-2">
-                        Continue
+                        Request access
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                       </span>
                       <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 group-hover:translate-x-full" />
@@ -239,8 +218,8 @@ const Index = () => {
                   </form>
 
                   <p className="text-center text-xs text-muted-foreground">
-                    Don't have an account?{" "}
-                    <a href="#" className="font-medium text-glacier-700 underline-offset-4 hover:underline">Create your account</a>
+                    Already verified?{" "}
+                    <a href="#" className="font-medium text-glacier-700 underline-offset-4 hover:underline">Sign in</a>
                   </p>
                 </div>
               </div>
@@ -254,78 +233,29 @@ const Index = () => {
         <EvolutionStory />
       </div>
 
-      {/* ── Products ── */}
-      <ProductsSection />
+      {/* ── Catalog ── */}
+      <CatalogSection />
 
-      {/* ── Discover ── */}
-      <DiscoverSection />
+      {/* ── Quality ── */}
+      <QualitySection />
 
-      {/* ── Support ── */}
-      <SupportSection />
+      {/* ── Documentation ── */}
+      <DocumentationSection />
 
-      {/* ── Practitioner ── */}
-      <PractitionerSection />
+      {/* ── Researchers ── */}
+      <ResearchersSection />
 
-      {/* ── Final CTA ── */}
-      <FinalCTA />
-
-      {/* ── 3-up category cards (kept as foundational pillars) ── */}
-      <section id="pillars" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10">
-        <div className="mb-14 flex flex-col items-center text-center">
-          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-glacier-200 bg-glacier-50 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-glacier-700">
-            Foundation
-          </span>
-          <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-            Built on a <span className="italic font-serif text-aurora">living</span> foundation.
-          </h2>
-          <p className="mt-3 max-w-xl text-sm text-muted-foreground">
-            Three pillars hold the platform together — engineered with the same care as a folded protein.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          {cards.map((c, i) => {
-            const Icon = c.icon;
-            return (
-              <article
-                key={c.eyebrow}
-                className={`group relative overflow-hidden rounded-3xl bg-gradient-to-br ${c.tone} p-8 shadow-soft ring-1 ring-white/60 transition-all duration-500 hover:-translate-y-1 hover:shadow-glacier`}
-                style={{ animationDelay: `${i * 80}ms` }}
-              >
-                <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-white/40 blur-2xl transition-transform duration-700 group-hover:scale-125" />
-                <div className="relative flex h-72 flex-col justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/70 text-glacier-deep shadow-soft backdrop-blur">
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-glacier-700">
-                      {c.eyebrow}
-                    </p>
-                    <h3 className="text-2xl font-semibold leading-tight tracking-tight">
-                      {c.title[0]}
-                      <span className="italic font-serif text-aurora">{c.title[1]}</span>
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-glacier-deep/70">{c.body}</p>
-                    <div className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-glacier-deep">
-                      Explore
-                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      {/* ── Compliance + Contact CTA ── */}
+      <ComplianceCTA />
 
       {/* ── Footer ── */}
       <footer className="border-t border-border/70 bg-white/60 backdrop-blur">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-[11px] text-muted-foreground sm:flex-row lg:px-10">
-          <span>© {new Date().getFullYear()} Lovable, Inc.</span>
+          <span>© {new Date().getFullYear()} PaleoChems. Research use only.</span>
           <div className="flex items-center gap-5">
-            <a href="#" className="hover:text-glacier-700">Privacy</a>
-            <a href="#" className="hover:text-glacier-700">Terms</a>
-            <a href="#" className="hover:text-glacier-700">Status</a>
+            <a href="#" className="hover:text-glacier-700">Terms of Sale</a>
+            <a href="#" className="hover:text-glacier-700">Compliance</a>
+            <a href="#contact" className="hover:text-glacier-700">Contact</a>
           </div>
         </div>
       </footer>
