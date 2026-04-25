@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { GithubIcon, GoogleIcon } from "@/components/icons";
 import { PolypeptideScene } from "@/components/PolypeptideScene";
 import { PolypeptideBorder } from "@/components/PolypeptideBorder";
+import { EvolutionStory } from "@/components/EvolutionStory";
 
 const cards = [
   {
@@ -218,6 +219,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* ── Evolution story: Paleolithic → Peptides ── */}
+      <EvolutionStory />
 
       {/* ── 3-up category cards (InfiniWell-inspired) ── */}
       <section id="discover" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10">
