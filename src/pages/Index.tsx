@@ -7,6 +7,7 @@ import { GithubIcon, GoogleIcon } from "@/components/icons";
 import { PolypeptideScene } from "@/components/PolypeptideScene";
 import { PolypeptideBorder } from "@/components/PolypeptideBorder";
 import { EvolutionStory } from "@/components/EvolutionStory";
+import { EvolutionHeroVideo } from "@/components/EvolutionHeroVideo";
 
 const cards = [
   {
@@ -73,6 +74,9 @@ const Index = () => {
           </Button>
         </nav>
       </header>
+
+      {/* ── Cinematic evolution hero video ── */}
+      <EvolutionHeroVideo />
 
       {/* ── Hero with animated polypeptide border frame ── */}
       <section className="relative min-h-screen w-full overflow-hidden bg-gradient-aurora pt-16">
@@ -221,7 +225,9 @@ const Index = () => {
       </section>
 
       {/* ── Evolution story: Paleolithic → Peptides ── */}
-      <EvolutionStory />
+      <div id="story">
+        <EvolutionStory />
+      </div>
 
       {/* ── 3-up category cards (InfiniWell-inspired) ── */}
       <section id="discover" className="relative mx-auto max-w-7xl px-6 py-24 lg:px-10">
