@@ -128,14 +128,14 @@ export const EvolutionHeroVideo = () => {
               href="#catalog"
               className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-glacier-deep shadow-glacier hover:bg-glacier-50"
             >
-              Begin the journey
+              Browse the catalog
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
             </a>
             <a
               href="#story"
               className="text-sm font-medium text-white/80 underline-offset-4 hover:text-white hover:underline"
             >
-              Watch the full story ↓
+              See our process ↓
             </a>
           </div>
         </div>
